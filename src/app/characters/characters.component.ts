@@ -24,6 +24,7 @@ export class CharactersComponent {
     this.loadCharactersByPage();
   }
 
+
   loadCharactersByPage() {
     // const params = new URLSearchParams();
     const params = this.page;
