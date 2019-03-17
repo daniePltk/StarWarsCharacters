@@ -17,7 +17,7 @@ export class CharactersComponent implements OnInit {
   characters: Array<any> = [];
   page = 1;
   next: boolean;
-  totalPages: number;
+  totalPages: any;
 
   constructor(private characterService: CharactersService) { }
   ngOnInit() {
@@ -38,8 +38,8 @@ export class CharactersComponent implements OnInit {
         this.next = false;
       }
       this.characters = this.response.results;
-      // const totalItems = Number(this.response.count);
-      // this.totalPages = Math.ceil(totalItems / 10);
+      const totalItems = Number(this.response.count);
+      this.totalPages = new Array<number>(Math.ceil(totalItems / 10));
       this.isLoading = false;
     }, error => {
       this.isLoading = false;

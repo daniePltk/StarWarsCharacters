@@ -9,16 +9,16 @@ import { Page } from './pagination.model';
 export class PaginationComponent {
   @Output() changePage = new EventEmitter();
   @Input() totalPages: number;
-  @Input() page: number;
+  @Input() currentPage: number;
   @Input() next: boolean;
   constructor() { }
 
   nextPage() {
-    this.page = this.page + 1;
-    this.changePage.emit(this.page);
+    this.currentPage = this.currentPage + 1;
+    this.changePage.emit(this.currentPage);
   }
   prevPage() {
-    this.page = this.page - 1;
-    this.changePage.emit(this.page);
+    this.currentPage = this.currentPage - 1;
+    this.changePage.emit(this.currentPage);
   }
 }
