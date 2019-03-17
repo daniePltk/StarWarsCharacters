@@ -1,9 +1,12 @@
-<div>
-  <div *ngIf="isLoading">Loading...</div>
-  <div *ngIf="!isLoading">
-    <div *ngFor="let c of characters">
-      <app-character [characterModel]="c"></app-character>
-    </div>
-    <app-pagination (changePage)="pageChanged($event)" [page]='page' [next]='next'></app-pagination>
+<div class="characters-main-container">
+  <div class="loader" *ngIf="isLoading"><img src="../../assets/images/blue-dots-loader.gif" height="18" width="18"/>
   </div>
+  <div class="characters-display-container">
+    <div *ngIf="!isLoading">
+      <div *ngFor="let c of characters">
+        <app-character [characterModel]="c"></app-character>
+      </div>
+    </div>
+  </div>
+  <app-pagination (changePage)="pageChanged($event)" [page]='page' [next]='next' [totalPages]="totalPages"></app-pagination>
 </div>

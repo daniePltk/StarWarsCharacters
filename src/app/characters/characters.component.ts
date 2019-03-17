@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CharactersService } from './characters.service';
 
 export interface IResponse {
+  count: number;
   results: Array<any>;
 }
 
@@ -16,6 +17,7 @@ export class CharactersComponent implements OnInit {
   characters: Array<any> = [];
   page = 1;
   next: boolean;
+  totalPages: number;
 
   constructor(private characterService: CharactersService) { }
   ngOnInit() {
@@ -36,6 +38,8 @@ export class CharactersComponent implements OnInit {
         this.next = false;
       }
       this.characters = this.response.results;
+      // const totalItems = Number(this.response.count);
+      // this.totalPages = Math.ceil(totalItems / 10);
       this.isLoading = false;
     }, error => {
       this.isLoading = false;

@@ -8,7 +8,7 @@ import { Page } from './pagination.model';
 })
 export class PaginationComponent {
   @Output() changePage = new EventEmitter();
-
+  @Input() totalPages: number;
   @Input() page: number;
   @Input() next: boolean;
   constructor() { }
