@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CharactersService } from './characters.service';
-import { CharacterModel } from './character.model';
-import { PaginationComponent } from '../pagination/pagination.component';
 
 export interface IResponse {
   results: Array<any>;
@@ -12,25 +10,31 @@ export interface IResponse {
   templateUrl: './characters.component.html',
   styleUrls: ['./characters.component.scss']
 })
-export class CharactersComponent {
+export class CharactersComponent implements OnInit {
   isLoading: boolean;
   response: IResponse;
-  characters: Array<any>;
-  page: any;
-  itemsPerPage = 10;
+  characters: Array<any> = [];
+  page = 1;
+  next: boolean;
 
-  constructor(private characterService: CharactersService) {
-    // this.page = pagination.page.page;
+  constructor(private characterService: CharactersService) { }
+  ngOnInit() {
+    this.loadCharactersByPage();
+  }
+  pageChanged(p: number) {
+    this.page = p;
     this.loadCharactersByPage();
   }
 
-
   loadCharactersByPage() {
-    // const params = new URLSearchParams();
-    const params = this.page;
     this.isLoading = true;
-    this.characterService.getCharacters(params).subscribe(data => {
+    this.characterService.getCharacters(this.page).subscribe(data => {
       this.response = data;
+      if (data.next == null) {
+        this.next = true;
+      } else {
+        this.next = false;
+      }
       this.characters = this.response.results;
       this.isLoading = false;
     }, error => {

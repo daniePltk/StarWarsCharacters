@@ -2,18 +2,8 @@
   <div *ngIf="isLoading">Loading...</div>
   <div *ngIf="!isLoading">
     <div *ngFor="let c of characters">
-      <div>
-        <app-character [characterModel]="c"></app-character>
-      </div>
+      <app-character [characterModel]="c"></app-character>
     </div>
+    <app-pagination (changePage)="pageChanged($event)" [page]='page' [next]='next'></app-pagination>
   </div>
-</div>
-<div>
-  <!--<app-pagination-->
-    <!--[maxPages]="maxPages"-->
-    <!--[current]="currentPage"-->
-    <!--[itemsPerPage]="itemsPerPage"-->
-    <!--(changePage)="pageChanged($event)"-->
-  <!--&gt;</app-pagination>-->
-  <app-pagination></app-pagination>
 </div>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Page } from './pagination.model';
 
 @Component({
@@ -6,55 +6,19 @@ import { Page } from './pagination.model';
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss']
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent {
+  @Output() changePage = new EventEmitter();
 
-  page: Page;
-
-  constructor() {
-  }
-  ngOnInit() {
-    this.page.page = 1;
-  }
+  @Input() page: number;
+  @Input() next: boolean;
+  constructor() { }
 
   nextPage() {
-    this.page.page++;
+    this.page = this.page + 1;
+    this.changePage.emit(this.page);
   }
   prevPage() {
-    this.page.page--;
+    this.page = this.page - 1;
+    this.changePage.emit(this.page);
   }
-  // @Input() maxPages: number;
-  // @Input() current: number;
-  // @Input() postsPerPage: number[];
-  // @Input() itemsPerPage: number;
-  //
-  // @Output() changePage = new EventEmitter();
-  //
-  // pages: any[] = [];
-  // pageModel: Page = {
-  //   page: this.current,
-  //   itemsPerPage: this.itemsPerPage
-  // };
-  //
-  // constructor() {
-  // }
-  //
-  // ngOnInit() {
-  //   if (this.maxPages) {
-  //     this.createPages();
-  //   }
-  // }
-  //
-  // setPage(page: number, perPage: number) {
-  //   this.pageModel.page = page;
-  //   this.pageModel.itemsPerPage = perPage;
-  //   this.changePage.emit(this.pageModel);
-  // }
-  //
-  // createPages() {
-  //   for (let i = 1; i <= this.maxPages; i++) {
-  //     this.pages.push(i);
-  //   }
-  // }
-
-
 }
