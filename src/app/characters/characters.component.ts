@@ -17,29 +17,42 @@ export class CharactersComponent implements OnInit {
   characters: Array<any> = [];
   page = 1;
   next: boolean;
-  totalPages: any;
+  totalPages: Array<number>;
+  totalPagesEmpty: any;
 
-  constructor(private characterService: CharactersService) { }
+  constructor(private characterService: CharactersService) {
+  }
+
   ngOnInit() {
     this.loadCharactersByPage();
   }
-  pageChanged(p: number) {
-    this.page = p;
+
+  pageChanged(page: number) {
+    this.page = page;
     this.loadCharactersByPage();
+  }
+
+  createList() {
+    this.totalPages = [];
+    for (let i = 1; i < this.totalPagesEmpty.length + 1; i++) {
+      const element = this.totalPagesEmpty[i];
+      this.totalPages.push(i);
+    }
   }
 
   loadCharactersByPage() {
     this.isLoading = true;
     this.characterService.getCharacters(this.page).subscribe(data => {
       this.response = data;
-      if (data.next == null) {
-        this.next = true;
-      } else {
+      if (data.next === null) {
         this.next = false;
+      } else {
+        this.next = true;
       }
       this.characters = this.response.results;
       const totalItems = Number(this.response.count);
-      this.totalPages = new Array<number>(Math.ceil(totalItems / 10));
+      this.totalPagesEmpty = new Array<number>(Math.ceil(totalItems / 10));
+      this.createList();
       this.isLoading = false;
     }, error => {
       this.isLoading = false;

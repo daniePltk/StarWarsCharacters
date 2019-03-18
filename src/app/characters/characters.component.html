@@ -3,10 +3,10 @@
   </div>
   <div class="characters-display-container">
     <div *ngIf="!isLoading">
-      <div *ngFor="let c of characters">
-        <app-character [characterModel]="c"></app-character>
+      <div *ngFor="let character of characters">
+        <app-character [characterModel]="character"></app-character>
       </div>
     </div>
   </div>
-  <app-pagination (changePage)="pageChanged($event)" [currentPage]='currentPage' [next]='next' [totalPages]="totalPages"></app-pagination>
+  <app-pagination (changePage)="pageChanged($event)" [currentPage]='page' [isNextPage]='next' [totalItems]="totalPages" [isDisabled]="isLoading"></app-pagination>
 </div>

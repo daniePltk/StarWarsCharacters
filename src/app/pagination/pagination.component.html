@@ -1,14 +1,15 @@
-
 <ul class="pagination">
   <li class="page-item">
-    <a class="page-link" href="#" aria-label="Previous" (click)="prevPage()" *ngIf="currentPage > 1">
+    <a [ngClass]="{'disabled':  this.currentPage === 1 || isDisabled}" class="page-link" href="#" aria-label="Previous" (click)="prevPage()">
       <span aria-hidden="true">&laquo;</span>
       <span class="sr-only">Previous</span>
     </a>
   </li>
-  <li class="page-item" *ngFor="let t of totalPages"><a class="page-link" href="#">{{t}}</a></li>
+  <li [ngClass]="{'active':  this.currentPage === page, 'disabled': isDisabled }" class="page-item" *ngFor="let page of totalItems">
+    <a class="page-link" href="#" (click)="choosenPage(page)">{{page}}</a>
+  </li>
   <li class="page-item">
-    <a class="page-link" href="#" aria-label="Next" (click)="nextPage()" *ngIf="!next">
+    <a [ngClass]="{'disabled':  !isNextPage || isDisabled}"  class="page-link" href="#" aria-label="Next" (click)="nextPage()">
       <span aria-hidden="true">&raquo;</span>
       <span class="sr-only">Next</span>
     </a>

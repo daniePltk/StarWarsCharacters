@@ -1,6 +1,10 @@
 @import "./pagination/pagination.component";
 @import "./characters/characters.component";
 
+.disabled{
+  pointer-events: none;
+  opacity: .4;
+}
 .main-container {
   max-width: 900px;
   margin: 0 auto;

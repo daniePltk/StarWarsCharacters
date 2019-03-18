@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Page } from './pagination.model';
 
 @Component({
@@ -8,15 +8,24 @@ import { Page } from './pagination.model';
 })
 export class PaginationComponent {
   @Output() changePage = new EventEmitter();
-  @Input() totalPages: number;
+  @Input() totalItems: any;
   @Input() currentPage: number;
-  @Input() next: boolean;
-  constructor() { }
+  @Input() isNextPage: boolean;
+  @Input() isDisabled: boolean;
+
+  constructor() {
+  }
+
+  choosenPage(page) {
+    this.currentPage = page;
+    this.changePage.emit(this.currentPage);
+  }
 
   nextPage() {
     this.currentPage = this.currentPage + 1;
     this.changePage.emit(this.currentPage);
   }
+
   prevPage() {
     this.currentPage = this.currentPage - 1;
     this.changePage.emit(this.currentPage);
