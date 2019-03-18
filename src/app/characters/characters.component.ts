@@ -18,7 +18,7 @@ export class CharactersComponent implements OnInit {
   page = 1;
   next: boolean;
   totalPages: Array<number>;
-  totalPagesEmpty: any;
+  countPages: any;
 
   constructor(private characterService: CharactersService) {
   }
@@ -32,10 +32,9 @@ export class CharactersComponent implements OnInit {
     this.loadCharactersByPage();
   }
 
-  createList() {
+  createPaginationSequence(count: number) {
     this.totalPages = [];
-    for (let i = 1; i < this.totalPagesEmpty.length + 1; i++) {
-      const element = this.totalPagesEmpty[i];
+    for (let i = 1; i < count + 1; i++) {
       this.totalPages.push(i);
     }
   }
@@ -44,15 +43,17 @@ export class CharactersComponent implements OnInit {
     this.isLoading = true;
     this.characterService.getCharacters(this.page).subscribe(data => {
       this.response = data;
+      this.characters = this.response.results;
       if (data.next === null) {
         this.next = false;
       } else {
         this.next = true;
       }
-      this.characters = this.response.results;
-      const totalItems = Number(this.response.count);
-      this.totalPagesEmpty = new Array<number>(Math.ceil(totalItems / 10));
-      this.createList();
+      if (!this.countPages) {
+        const totalCharacters = Number(this.response.count);
+        this.countPages = Math.ceil(totalCharacters / 10);
+        this.createPaginationSequence(this.countPages);
+      }
       this.isLoading = false;
     }, error => {
       this.isLoading = false;
