@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CharactersService } from './characters.service';
+import { CharacterModel } from './character.model';
 
 export interface IResponse {
   count: number;
-  results: Array<any>;
+  results: Array<CharacterModel>;
 }
 
 @Component({
@@ -14,11 +15,11 @@ export interface IResponse {
 export class CharactersComponent implements OnInit {
   isLoading: boolean;
   response: IResponse;
-  characters: Array<any> = [];
+  characters: Array<CharacterModel> = [];
   page = 1;
   next: boolean;
   totalPages: Array<number>;
-  countPages: any;
+  countPages: number;
 
   constructor(private characterService: CharactersService) {
   }
@@ -49,6 +50,7 @@ export class CharactersComponent implements OnInit {
       } else {
         this.next = true;
       }
+      // Create Pagination Sequence once
       if (!this.countPages) {
         const totalCharacters = Number(this.response.count);
         this.countPages = Math.ceil(totalCharacters / 10);

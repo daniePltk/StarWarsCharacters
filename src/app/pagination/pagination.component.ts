@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Page } from './pagination.model';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-pagination',
@@ -11,7 +10,6 @@ export class PaginationComponent {
   @Input() totalItems: any;
   @Input() currentPage: number;
   @Input() isNextPage: boolean;
-  @Input() isDisabled: boolean;
 
   constructor() {
   }
